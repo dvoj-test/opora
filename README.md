@@ -1,5 +1,5 @@
 # opora
-# 🛡️ Klidný Táta (Projekt Opora) - v2.0
+# 🛡️ Klidný Táta (Projekt Opora) - v2.1
 
 Osobní mikro-aplikace navržená pro zvládání extrémního stresu při výchově dvojčat, eliminaci výbuchů vzteku a aktivní podporu manželky (podnikatelky na hraně vyčerpání).
 
