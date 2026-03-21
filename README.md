@@ -123,3 +123,23 @@ Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
 1. **SOS sekce:** Pro okamžitý stop-stav emocí.
 2. **Déšť (YouTube):** Otevře seznam aktuálních videí s deštěm. Stačí kliknout na první v pořadí.
 3. **Signál:** SMS podpora pro manželku.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v3.0
+
+Mentální asistent pro zvládání stresu, výchovu dvojčat a aktivní podporu manželky.
+
+## 🆕 Novinky ve verzi 3.0
+- **🔋 Baterie Odolnosti:** Vizuální ukazatel tvého pokroku přímo v záhlaví. Čím více dní bez výbuchu, tím plnější baterie.
+- **🧱 Technika 5-4-3-2-1:** Nový SOS režim "Uzemnění" pro okamžité zastavení úzkosti nebo paniky.
+- **📜 Krizový manuál:** Rychlé mantry k přečtení v momentě, kdy děti nejvíc řvou.
+- **🏆 Moje vítězství:** Nové pole v deníku pro záznam momentů, kdy jsi situaci zvládl.
+- **🤝 Rychlá pomoc pro ni:** Seznam konkrétních akcí, které můžeš udělat hned, aniž bys manželku zatěžoval otázkami.
+
+## 🛠️ Funkce
+- **🔥 SOS Režimy:** Vztek (rychlý dech), Úzkost (pomalý dech), Uzemnění (smyslové vnímání).
+- **🌧️ Déšť:** Přímý odkaz na vyhledávání relaxačních zvuků na YouTube.
+- **❤️ Signál:** Předvyplněná SMS podpora manželce.
+- **📝 Historie vítězství:** Sledování tvého růstu jako stabilního pilíře rodiny.
+
+## 📱 Jak používat
+Doporučujeme mít aplikaci na ploše mobilu jako ikonu. SOS tlačítka používej dříve, než hněv dosáhne vrcholu. Večerní zápis vítězství ti pomůže přenastavit mozek na vnímání úspěchů místo selhání.
