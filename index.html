@@ -3,79 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Klidný Táta 2.1</title>
+    <title>Klidný Táta 2.2</title>
     <style>
         :root {
             --bg: #0f172a; --card: #1e293b; --primary: #52b788; --accent: #3b82f6;
-            --danger: #ef4444; --text: #f1f5f9; --text-dim: #94a3b8; --gold: #fbc02d;
+            --danger: #ef4444; --text: #f1f5f9; --text-dim: #94a3b8;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 40px; }
         .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-        
         header { text-align: center; padding: 10px 0; }
-        header h1 { font-size: 1.1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
-
+        header h1 { font-size: 1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
         .sos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .sos-btn { padding: 20px; border-radius: 20px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; transition: 0.2s; }
         .sos-anger { border-color: var(--danger); color: var(--danger); background: rgba(239, 68, 68, 0.1); }
         .sos-anxiety { border-color: var(--accent); color: var(--accent); background: rgba(59, 130, 246, 0.1); }
-
         .card { background: var(--card); border-radius: 24px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        
-        .step { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-start; }
-        .step b { color: var(--primary); font-size: 0.8rem; display: block; text-transform: uppercase; }
-        .step p { font-size: 0.95rem; margin: 0; line-height: 1.4; }
-
+        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; display: block; }
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .action-btn { background: #334155; border: none; padding: 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .playing { background: var(--primary); color: #0f172a; font-weight: bold; }
-
-        .form-group { margin-bottom: 15px; }
-        select, textarea { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; padding: 10px; font-family: inherit; }
+        .action-btn { background: #334155; border: none; padding: 15px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .playing { background: var(--primary) !important; color: #0f172a !important; font-weight: bold; }
+        textarea, select { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; padding: 12px; margin-bottom: 10px; font-family: inherit; }
         .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
-        .stat-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; }
-        .stat-num { display: block; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
-        .history-list { max-height: 300px; overflow-y: auto; margin-top: 10px; }
-        .history-item { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; }
-
         #sos-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
-        .breath-circle { width: 150px; height: 150px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
-        .animate-anger { animation: breatheAnger 6s infinite ease-in-out; }
-        .animate-anxiety { animation: breatheAnxiety 12s infinite ease-in-out; }
-        @keyframes breatheAnger { 0%, 100% { transform: scale(1); } 50% { transform: scale(2.2); } }
-        @keyframes breatheAnxiety { 0%, 100% { transform: scale(1); } 40% { transform: scale(2.5); } 60% { transform: scale(2.5); } }
+        .breath-circle { width: 140px; height: 140px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
+        .animate-anger { animation: bAnger 6s infinite ease-in-out; }
+        .animate-anxiety { animation: bAnxiety 12s infinite ease-in-out; }
+        @keyframes bAnger { 0%, 100% { transform: scale(1); } 50% { transform: scale(2.2); } }
+        @keyframes bAnxiety { 0%, 100% { transform: scale(1); } 40%, 60% { transform: scale(2.5); } }
         .close-sos { margin-top: 40px; color: var(--text-dim); text-decoration: underline; cursor: pointer; }
+        .history-item { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header><h1>Klidný Táta 2.1</h1></header>
+    <header><h1>Klidný Táta 2.2</h1></header>
 
     <div class="sos-grid">
-        <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK<br><span style="font-size:0.7rem; font-weight:normal">Rychlé zklidnění</span></div>
-        <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST<br><span style="font-size:0.7rem; font-weight:normal">Uzemnění</span></div>
+        <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK</div>
+        <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST</div>
     </div>
-
-    <section class="card">
-        <span class="label">Mise na <span id="today-date">dnešek</span></span>
-        <div class="step">
-            <span>🧘</span>
-            <div id="task-me"><b>PRO MĚ</b><p>Načítání...</p></div>
-        </div>
-        <div class="step" style="border-top:1px solid #334155; padding-top:15px; margin-top:15px;">
-            <span>🍵</span>
-            <div id="task-her"><b>PRO ŽENU</b><p>Načítání...</p></div>
-        </div>
-    </section>
 
     <div class="action-row">
         <button id="rain-btn" class="action-btn" onclick="toggleAudio()">
-            <span id="audio-icon">🔈</span> Skutečný déšť
+            <span id="audio-icon">🔈</span> Zvuk deště
         </button>
         <button class="action-btn" onclick="sendSignal()">
             ❤️ Signál pro ni
@@ -83,111 +55,99 @@
     </div>
 
     <section class="card">
-        <span class="label">Večerní reflexe</span>
-        <div class="form-group">
-            <label class="label">Moje rozčílení (0-5)</label>
-            <select id="my-anger">
-                <option value="0">0 - Klid</option><option value="1">1 - Podráždění</option>
-                <option value="2">2 - Prodýcháno</option><option value="3">3 - Hluk</option>
-                <option value="4">4 - Výbuch</option><option value="5">5 - Zkrat</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="label">Důvod</label>
-            <select id="anger-reason">
-                <option value="dvojcata">Dvojčata (hluk/vzdor)</option>
-                <option value="unava">Moje únava z práce</option>
-                <option value="komunikace">Nedorozumění s ženou</option>
-                <option value="provoz">Domácí chaos</option>
-            </select>
-        </div>
+        <span class="label">Mise na dnešek</span>
+        <div id="task-me" style="margin-bottom:10px;"><b>PRO MĚ:</b> <p>Načítání...</p></div>
+        <div id="task-her"><b>PRO NI:</b> <p>Načítání...</p></div>
+    </section>
+
+    <section class="card">
+        <span class="label">Večerní záznam</span>
+        <select id="anger-level"><option value="0">Vztek: 0 - Klid</option><option value="3">3 - Výbuch</option><option value="5">5 - Zkrat</option></select>
         <textarea id="note" rows="2" placeholder="Jak jsi ji dnes podpořil?"></textarea>
         <button class="save-btn" onclick="saveEntry()">Uložit den</button>
     </section>
 
     <section class="card">
-        <span class="label">Statistiky</span>
-        <select id="stats-range" onchange="updateStats()" style="margin-bottom:15px;">
-            <option value="7">7 dní</option><option value="14">14 dní</option><option value="28">28 dní</option>
-        </select>
-        <div class="stats-grid">
-            <div class="stat-box"><span class="stat-num" id="stat-anger-count">0</span><span class="label" style="font-size:0.6rem">Výbuchy</span></div>
-            <div class="stat-box"><span class="stat-num" id="stat-her-stress">0%</span><span class="label" style="font-size:0.6rem">Její vyčerpání</span></div>
-        </div>
-        <div class="history-list" id="history-list"></div>
+        <span class="label">Historie (poslední 3)</span>
+        <div id="history-list"></div>
     </section>
 </div>
 
 <div id="sos-modal">
     <div id="breath-circle" class="breath-circle"></div>
-    <h2 id="sos-instruction" style="font-weight:300; margin-bottom:20px;"></h2>
+    <h2 id="sos-instruction" style="font-weight:300;">Dýchej...</h2>
     <div class="close-sos" onclick="stopSOS()">Zavřít</div>
 </div>
 
-<!-- OPRAVENÝ AUDIO ZDROJ (Přírodní déšť) -->
+<!-- NOVÝ ZDROJ AUDIA - Stabilní CDN (Bílý šum/déšť) -->
 <audio id="rain-audio" loop preload="auto">
-    <source src="https://www.soundjay.com/nature/sounds/rain-07.mp3" type="audio/mpeg">
+    <source src="https://actions.google.com/sounds/v1/water/rain_on_roof.ogg" type="audio/ogg">
+    <source src="https://lasonotheque.org/m4a/0124.m4a" type="audio/mp4">
 </audio>
 
 <script>
-    const tasksMe = ["5 min ticha v autě před domem.", "Studená sprcha po příchodu.", "Telefon do šuplíku na 30 min.", "10 dechů před odpovědí.", "Vypni rádio v autě.", "Dnes bez ironie."];
-    const tasksHer = ["Uvař čaj bez ptaní.", "Vyzvedni dvojčata na 20 min.", "Umyj nádobí sám.", "Napiš: 'Jsi skvělá máma'.", "Zeptej se: 'S čím ti pomůžu?'", "Jen poslouchej 15 min."];
+    const tasksMe = ["5 min ticha v autě.", "Studená sprcha.", "Mobil do šuplíku.", "10 dechů před odpovědí."];
+    const tasksHer = ["Uvař čaj bez ptaní.", "Vezmi děti na 20 min ven.", "Jen ji 15 min poslouchej."];
 
-    window.onload = function() {
-        setDailyTasks(); updateStats();
-        document.getElementById('today-date').innerText = new Date().toLocaleDateString();
-    };
+    // AUDIO LOGIKA
+    const audio = document.getElementById('rain-audio');
+    const rainBtn = document.getElementById('rain-btn');
 
-    function setDailyTasks() {
-        const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-        document.getElementById('task-me').querySelector('p').innerText = tasksMe[dayOfYear % tasksMe.length];
-        document.getElementById('task-her').querySelector('p').innerText = tasksHer[dayOfYear % tasksHer.length];
+    function toggleAudio() {
+        if (audio.paused) {
+            audio.play().then(() => {
+                rainBtn.classList.add('playing');
+                document.getElementById('audio-icon').innerText = "🔊";
+            }).catch(e => {
+                alert("Pro spuštění zvuku musíš nejdřív jednou kliknout kamkoliv na stránku.");
+            });
+        } else {
+            audio.pause();
+            rainBtn.classList.remove('playing');
+            document.getElementById('audio-icon').innerText = "🔈";
+        }
+    }
+
+    // SMS LOGIKA (iOS vs Android)
+    function sendSignal() {
+        const msg = "Ahoj lasko, moc na tebe myslim. Jsi statecna, jak to zvladas. Vecer jsem v tom s tebou. ❤️";
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const link = isIOS ? `sms:&body=${encodeURIComponent(msg)}` : `sms:?body=${encodeURIComponent(msg)}`;
+        
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location.href = link;
+        } else {
+            alert("Tato funkce (SMS) funguje pouze v mobilu. Text zní: \n\n" + msg);
+        }
     }
 
     function startSOS(type) {
         document.getElementById('sos-modal').style.display = 'flex';
         const circle = document.getElementById('breath-circle');
         circle.className = 'breath-circle ' + (type === 'anger' ? 'animate-anger' : 'animate-anxiety');
-        document.getElementById('sos-instruction').innerText = type === 'anger' ? "Dýchej s kruhem... Zklidni tep." : "Pomalý nádech... a výdech...";
+        document.getElementById('sos-instruction').innerText = type === 'anger' ? "RYCHLEJŠÍ DECH (VZTEK)" : "POMALÝ DECH (ÚZKOST)";
     }
 
     function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; }
 
-    // OPRAVENÁ FUNKCE AUDIA
-    function toggleAudio() {
-        const audio = document.getElementById('rain-audio');
-        const btn = document.getElementById('rain-btn');
-        const icon = document.getElementById('audio-icon');
-        if (audio.paused) {
-            audio.play().catch(e => alert("Klikni nejdřív kamkoliv na stránku a pak pusť zvuk."));
-            icon.innerText = "🔊";
-            btn.classList.add('playing');
-        } else {
-            audio.pause();
-            icon.innerText = "🔈";
-            btn.classList.remove('playing');
-        }
-    }
-
-    function sendSignal() {
-        const text = encodeURIComponent("Ahoj lásko, moc na tebe myslím. Jsi statečná. Večer to spolu zvládneme. ❤️");
-        window.location.href = `sms:?body=${text}`;
-    }
-
     function saveEntry() {
-        const entry = { date: new Date().toISOString(), anger: parseInt(document.getElementById('my-anger').value), reason: document.getElementById('anger-reason').value, note: document.getElementById('note').value };
+        const entry = { date: new Date().toLocaleDateString(), anger: document.getElementById('anger-level').value, note: document.getElementById('note').value };
         let logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
-        logs.push(entry);
-        localStorage.setItem('calm_logs', JSON.stringify(logs));
-        alert("Uloženo."); updateStats();
+        logs.push(entry); localStorage.setItem('calm_logs', JSON.stringify(logs));
+        alert("Uloženo."); updateStats(); document.getElementById('note').value = "";
     }
 
     function updateStats() {
         const logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
-        const list = document.getElementById('history-list');
-        list.innerHTML = logs.slice().reverse().map(l => `<div class="history-item"><b>${new Date(l.date).toLocaleDateString()}</b>: Vztek ${l.anger}/5 - ${l.note}</div>`).join('');
-        document.getElementById('stat-anger-count').innerText = logs.filter(l => l.anger >= 3).length;
+        document.getElementById('history-list').innerHTML = logs.slice(-3).reverse().map(l => `<div class="history-item"><b>${l.date}</b>: Vztek ${l.anger}/5<br>${l.note}</div>`).join('');
     }
+
+    window.onload = function() {
+        const day = new Date().getDate() % tasksMe.length;
+        document.getElementById('task-me').querySelector('p').innerText = tasksMe[day];
+        document.getElementById('task-her').querySelector('p').innerText = tasksHer[day % tasksHer.length];
+        updateStats();
+    };
 </script>
 </body>
 </html>
