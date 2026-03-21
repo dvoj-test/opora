@@ -112,3 +112,14 @@ Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
 1. **SOS sekce:** Klikni okamžitě, když cítíš, že v tobě "vřou saze".
 2. **Déšť:** Ideální po cestě z práce nebo v koupelně pro rychlou zvukovou izolaci.
 3. **Signál:** Nezapomeň poslat alespoň jednou za dva dny pro udržení morálky manželky.
+
+   # 🛡️ Klidný Táta (Projekt Opora) - v2.5
+
+## 🛠️ Změny ve verzi 2.5
+- **Nerozbitný Audio odkaz:** Místo odkazu na konkrétní video YouTube (které může být smazáno) nyní tlačítko otevírá **vyhledávání YouTube** pro "uklidňující déšť". To zaručuje, že vždy najdete funkční video.
+- **Stabilita:** Optimalizace kódu pro rychlé načítání historie deníku.
+
+## 🚀 Jak používat
+1. **SOS sekce:** Pro okamžitý stop-stav emocí.
+2. **Déšť (YouTube):** Otevře seznam aktuálních videí s deštěm. Stačí kliknout na první v pořadí.
+3. **Signál:** SMS podpora pro manželku.
