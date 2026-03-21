@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Klidný Táta 2.0</title>
+    <title>Klidný Táta 2.1</title>
     <style>
         :root {
             --bg: #0f172a; --card: #1e293b; --primary: #52b788; --accent: #3b82f6;
@@ -16,38 +16,32 @@
         header { text-align: center; padding: 10px 0; }
         header h1 { font-size: 1.1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
 
-        /* SOS MODES */
         .sos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .sos-btn { padding: 20px; border-radius: 20px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; transition: 0.2s; }
         .sos-anger { border-color: var(--danger); color: var(--danger); background: rgba(239, 68, 68, 0.1); }
         .sos-anxiety { border-color: var(--accent); color: var(--accent); background: rgba(59, 130, 246, 0.1); }
 
-        /* CARDS */
         .card { background: var(--card); border-radius: 24px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
         .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
         
-        /* MIKRO-KROKY */
         .step { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-start; }
         .step b { color: var(--primary); font-size: 0.8rem; display: block; text-transform: uppercase; }
         .step p { font-size: 0.95rem; margin: 0; line-height: 1.4; }
 
-        /* AUDIO & SMS */
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .action-btn { background: #334155; border: none; padding: 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .playing { background: var(--primary); color: #0f172a; font-weight: bold; }
 
-        /* FORMULÁŘ DENÍKU */
         .form-group { margin-bottom: 15px; }
         select, textarea { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; padding: 10px; font-family: inherit; }
         .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
 
-        /* STATS & HISTORY */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
         .stat-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; }
         .stat-num { display: block; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
         .history-list { max-height: 300px; overflow-y: auto; margin-top: 10px; }
         .history-item { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; }
 
-        /* MODAL BREATHING */
         #sos-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
         .breath-circle { width: 150px; height: 150px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
         .animate-anger { animation: breatheAnger 6s infinite ease-in-out; }
@@ -55,22 +49,18 @@
         @keyframes breatheAnger { 0%, 100% { transform: scale(1); } 50% { transform: scale(2.2); } }
         @keyframes breatheAnxiety { 0%, 100% { transform: scale(1); } 40% { transform: scale(2.5); } 60% { transform: scale(2.5); } }
         .close-sos { margin-top: 40px; color: var(--text-dim); text-decoration: underline; cursor: pointer; }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header><h1>Klidný Táta 2.0</h1></header>
+    <header><h1>Klidný Táta 2.1</h1></header>
 
-    <!-- SOS SEKCE -->
     <div class="sos-grid">
         <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK<br><span style="font-size:0.7rem; font-weight:normal">Rychlé zklidnění</span></div>
         <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST<br><span style="font-size:0.7rem; font-weight:normal">Uzemnění</span></div>
     </div>
 
-    <!-- MIKRO-KROKY -->
     <section class="card">
         <span class="label">Mise na <span id="today-date">dnešek</span></span>
         <div class="step">
@@ -83,113 +73,68 @@
         </div>
     </section>
 
-    <!-- RYCHLÉ AKCE -->
     <div class="action-row">
-        <button class="action-btn" onclick="toggleAudio()">
-            <span id="audio-icon">🔈</span> Zvuk deště
+        <button id="rain-btn" class="action-btn" onclick="toggleAudio()">
+            <span id="audio-icon">🔈</span> Skutečný déšť
         </button>
         <button class="action-btn" onclick="sendSignal()">
             ❤️ Signál pro ni
         </button>
     </div>
 
-    <!-- DENÍK A ZÁZNAM -->
     <section class="card">
         <span class="label">Večerní reflexe</span>
         <div class="form-group">
             <label class="label">Moje rozčílení (0-5)</label>
             <select id="my-anger">
-                <option value="0">0 - Klid</option>
-                <option value="1">1 - Mírné podráždění</option>
-                <option value="2">2 - Už jsem musel dýchat</option>
-                <option value="3">3 - Hlasitější výměna</option>
-                <option value="4">4 - Výbuch</option>
-                <option value="5">5 - Totální zkrat</option>
+                <option value="0">0 - Klid</option><option value="1">1 - Podráždění</option>
+                <option value="2">2 - Prodýcháno</option><option value="3">3 - Hluk</option>
+                <option value="4">4 - Výbuch</option><option value="5">5 - Zkrat</option>
             </select>
         </div>
         <div class="form-group">
-            <label class="label">Důvod (hlavní spouštěč)</label>
+            <label class="label">Důvod</label>
             <select id="anger-reason">
                 <option value="dvojcata">Dvojčata (hluk/vzdor)</option>
                 <option value="unava">Moje únava z práce</option>
                 <option value="komunikace">Nedorozumění s ženou</option>
-                <option value="provoz">Domácí chaos/nepořádek</option>
-                <option value="jine">Jiné</option>
+                <option value="provoz">Domácí chaos</option>
             </select>
         </div>
-        <div class="form-group">
-            <label class="label">Stav ženy (jak jsi ji vnímal?)</label>
-            <select id="her-state">
-                <option value="ok">Relativně v pohodě</option>
-                <option value="unava">Fyzicky vyčerpaná</option>
-                <option value="ment">Mentálně "na hraně"</option>
-                <option value="vzte">Rozčílená / v pláči</option>
-            </select>
-        </div>
-        <textarea id="note" rows="2" placeholder="Jak jsi ji dnes podpořil? Co se povedlo?"></textarea>
-        <button class="save-btn" onclick="saveEntry()">Uložit den a vyčistit hlavu</button>
+        <textarea id="note" rows="2" placeholder="Jak jsi ji dnes podpořil?"></textarea>
+        <button class="save-btn" onclick="saveEntry()">Uložit den</button>
     </section>
 
-    <!-- STATISTIKY -->
     <section class="card">
-        <span class="label">Statistiky a Historie</span>
+        <span class="label">Statistiky</span>
         <select id="stats-range" onchange="updateStats()" style="margin-bottom:15px;">
-            <option value="7">Posledních 7 dní</option>
-            <option value="14">Posledních 14 dní</option>
-            <option value="21">Poslední 3 týdny</option>
-            <option value="28">Poslední 4 týdny</option>
+            <option value="7">7 dní</option><option value="14">14 dní</option><option value="28">28 dní</option>
         </select>
         <div class="stats-grid">
-            <div class="stat-box">
-                <span class="stat-num" id="stat-anger-count">0</span>
-                <span class="label" style="font-size:0.6rem">Tvé výbuchy</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-num" id="stat-her-stress">0%</span>
-                <span class="label" style="font-size:0.6rem">Její vyčerpání</span>
-            </div>
+            <div class="stat-box"><span class="stat-num" id="stat-anger-count">0</span><span class="label" style="font-size:0.6rem">Výbuchy</span></div>
+            <div class="stat-box"><span class="stat-num" id="stat-her-stress">0%</span><span class="label" style="font-size:0.6rem">Její vyčerpání</span></div>
         </div>
-        <div class="history-list" id="history-list">
-            <!-- Historie se vygeneruje zde -->
-        </div>
+        <div class="history-list" id="history-list"></div>
     </section>
 </div>
 
-<!-- SOS MODAL -->
 <div id="sos-modal">
     <div id="breath-circle" class="breath-circle"></div>
     <h2 id="sos-instruction" style="font-weight:300; margin-bottom:20px;"></h2>
-    <p id="sos-subtext" style="color:var(--text-dim)"></p>
-    <div class="close-sos" onclick="stopSOS()">Už jsem v klidu</div>
+    <div class="close-sos" onclick="stopSOS()">Zavřít</div>
 </div>
 
-<!-- AUDIO ELEMENT (Rain sound) -->
-<audio id="rain-audio" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<!-- OPRAVENÝ AUDIO ZDROJ (Přírodní déšť) -->
+<audio id="rain-audio" loop preload="auto">
+    <source src="https://www.soundjay.com/nature/sounds/rain-07.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    // DATA PRO MIKRO-KROKY
-    const tasksMe = [
-        "5 minut ticha v autě před domem.", "Dej si studenou sprchu hned po příchodu.",
-        "Po práci odlož telefon na 30 minut.", "Dnes 10 hlubokých nádechů, než odpovíš ženě.",
-        "Vypni rádio v autě a vnímej jen svůj dech.", "Dnes si nebudu stěžovat na šéfa.",
-        "Až ucítíš vztek, jdi do jiné místnosti na 1 minutu.", "Před vstupem domů si vzpomeň na jednu věc, za kterou jsi vděčný.",
-        "Dnes večer nepoužívej ironii.", "Udělej si 5 minut pauzu hned, jak ucítíš napětí v čelisti."
-    ];
-    const tasksHer = [
-        "Uvař jí oblíbený čaj, aniž by se ptala.", "Vyzvedni dvojčata na 20 minut ven.",
-        "Umyj nádobí po večeři úplně sám.", "Napiš jí SMS teď hned: 'Jsi skvělá máma'.",
-        "Polož jí ruku na rameno a zeptej se: 'S čím ti teď nejvíc pomůžu?'",
-        "Dnes večer jí neříkej žádné rady, jen poslouchej.", "Pohlídej děti, aby si mohla dát 15 min vanu.",
-        "Udělej jí kávu přesně tak, jak ji má ráda.", "Ukliď chaos v předsíni bez řečí.",
-        "Řekni jí: 'Vidím, kolik toho dnes pro nás udělala, děkuju'."
-    ];
+    const tasksMe = ["5 min ticha v autě před domem.", "Studená sprcha po příchodu.", "Telefon do šuplíku na 30 min.", "10 dechů před odpovědí.", "Vypni rádio v autě.", "Dnes bez ironie."];
+    const tasksHer = ["Uvař čaj bez ptaní.", "Vyzvedni dvojčata na 20 min.", "Umyj nádobí sám.", "Napiš: 'Jsi skvělá máma'.", "Zeptej se: 'S čím ti pomůžu?'", "Jen poslouchej 15 min."];
 
-    // INICIALIZACE
     window.onload = function() {
-        setDailyTasks();
-        updateStats();
+        setDailyTasks(); updateStats();
         document.getElementById('today-date').innerText = new Date().toLocaleDateString();
     };
 
@@ -199,89 +144,50 @@
         document.getElementById('task-her').querySelector('p').innerText = tasksHer[dayOfYear % tasksHer.length];
     }
 
-    // SOS FUNKCE
     function startSOS(type) {
-        const modal = document.getElementById('sos-modal');
+        document.getElementById('sos-modal').style.display = 'flex';
         const circle = document.getElementById('breath-circle');
-        const inst = document.getElementById('sos-instruction');
-        const sub = document.getElementById('sos-subtext');
-        
-        modal.style.display = 'flex';
-        circle.className = 'breath-circle'; // reset
-        
-        if(type === 'anger') {
-            inst.innerText = "Sleduj kruh. Nádech... Výdech...";
-            sub.innerText = "Zpomalujeme tep. Jsou to jen děti, ne nepřátelé.";
-            circle.classList.add('animate-anger');
-        } else {
-            inst.innerText = "Nádech... Drž... Výdech...";
-            sub.innerText = "Uzemni se. Jsi v bezpečí. Jsi silná opora.";
-            circle.classList.add('animate-anxiety');
-        }
+        circle.className = 'breath-circle ' + (type === 'anger' ? 'animate-anger' : 'animate-anxiety');
+        document.getElementById('sos-instruction').innerText = type === 'anger' ? "Dýchej s kruhem... Zklidni tep." : "Pomalý nádech... a výdech...";
     }
 
     function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; }
 
-    // AUDIO
+    // OPRAVENÁ FUNKCE AUDIA
     function toggleAudio() {
         const audio = document.getElementById('rain-audio');
-        const btn = document.getElementById('audio-icon');
-        if (audio.paused) { audio.play(); btn.innerText = "🔊"; }
-        else { audio.pause(); btn.innerText = "🔈"; }
+        const btn = document.getElementById('rain-btn');
+        const icon = document.getElementById('audio-icon');
+        if (audio.paused) {
+            audio.play().catch(e => alert("Klikni nejdřív kamkoliv na stránku a pak pusť zvuk."));
+            icon.innerText = "🔊";
+            btn.classList.add('playing');
+        } else {
+            audio.pause();
+            icon.innerText = "🔈";
+            btn.classList.remove('playing');
+        }
     }
 
-    // SIGNÁL PRO ŽENU
     function sendSignal() {
-        const text = encodeURIComponent("Ahoj lásko, moc na tebe myslím. Jsi statečná, jak to všechno s dvojčaty a prací zvládáš. Večer jsem v tom s tebou. ❤️");
+        const text = encodeURIComponent("Ahoj lásko, moc na tebe myslím. Jsi statečná. Večer to spolu zvládneme. ❤️");
         window.location.href = `sms:?body=${text}`;
     }
 
-    // DATA PERSISTENCE & STATS
     function saveEntry() {
-        const entry = {
-            date: new Date().toISOString(),
-            anger: parseInt(document.getElementById('my-anger').value),
-            reason: document.getElementById('anger-reason').value,
-            her: document.getElementById('her-state').value,
-            note: document.getElementById('note').value
-        };
-
+        const entry = { date: new Date().toISOString(), anger: parseInt(document.getElementById('my-anger').value), reason: document.getElementById('anger-reason').value, note: document.getElementById('note').value };
         let logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
         logs.push(entry);
         localStorage.setItem('calm_logs', JSON.stringify(logs));
-        
-        alert("Zapsáno. Dnešek je uzavřen. Jsi o krok blíž ke klidu.");
-        document.getElementById('note').value = '';
-        updateStats();
+        alert("Uloženo."); updateStats();
     }
 
     function updateStats() {
         const logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
-        const range = parseInt(document.getElementById('stats-range').value);
-        const cutoff = new Date();
-        cutoff.setDate(cutoff.getDate() - range);
-
-        const filtered = logs.filter(l => new Date(l.date) > cutoff);
-        
-        // Výpočty
-        const angerExplosions = filtered.filter(l => l.anger >= 3).length;
-        const herStressEntries = filtered.filter(l => l.her !== 'ok').length;
-        const herStressPerc = filtered.length > 0 ? Math.round((herStressEntries / filtered.length) * 100) : 0;
-
-        document.getElementById('stat-anger-count').innerText = angerExplosions;
-        document.getElementById('stat-her-stress').innerText = herStressPerc + "%";
-
-        // Historie list
         const list = document.getElementById('history-list');
-        list.innerHTML = filtered.reverse().map(l => `
-            <div class="history-item">
-                <b>${new Date(l.date).toLocaleDateString()}</b>: 
-                Tvé rozčílení: ${l.anger}/5 (${l.reason}) | Žena: ${l.her}
-                <br><i style="color:var(--text-dim)">${l.note}</i>
-            </div>
-        `).join('');
+        list.innerHTML = logs.slice().reverse().map(l => `<div class="history-item"><b>${new Date(l.date).toLocaleDateString()}</b>: Vztek ${l.anger}/5 - ${l.note}</div>`).join('');
+        document.getElementById('stat-anger-count').innerText = logs.filter(l => l.anger >= 3).length;
     }
 </script>
-
 </body>
 </html>
