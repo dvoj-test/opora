@@ -3,154 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Klidný Táta 2.5</title>
+    <title>Klidný Táta 3.0</title>
     <style>
         :root {
             --bg: #0f172a; --card: #1e293b; --primary: #52b788; --accent: #3b82f6;
-            --danger: #ef4444; --text: #f1f5f9; --text-dim: #94a3b8;
+            --danger: #ef4444; --text: #f1f5f9; --text-dim: #94a3b8; --gold: #fbc02d;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 40px; }
-        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-        header { text-align: center; padding: 10px 0; }
-        header h1 { font-size: 1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 60px; }
+        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 20px; }
         
-        .sos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .sos-btn { padding: 20px; border-radius: 20px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; transition: 0.2s; }
+        header { text-align: center; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 0.9rem; font-weight: 300; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+
+        /* BATERIE ODOLNOSTI */
+        .battery-header { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 15px; }
+        .bat-box { width: 40px; height: 20px; border: 2px solid var(--text-dim); border-radius: 4px; position: relative; padding: 2px; }
+        .bat-box::after { content: ''; position: absolute; right: -6px; top: 4px; width: 4px; height: 8px; background: var(--text-dim); border-radius: 0 2px 2px 0; }
+        .bat-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s; }
+
+        /* SOS SEKCE */
+        .sos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .sos-btn { padding: 15px 5px; border-radius: 15px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; font-size: 0.75rem; transition: 0.2s; }
         .sos-anger { border-color: var(--danger); color: var(--danger); background: rgba(239, 68, 68, 0.1); }
         .sos-anxiety { border-color: var(--accent); color: var(--accent); background: rgba(59, 130, 246, 0.1); }
+        .sos-ground { border-color: var(--gold); color: var(--gold); background: rgba(251, 192, 45, 0.1); }
+
+        .card { background: var(--card); border-radius: 20px; padding: 18px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+        .label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
         
-        .card { background: var(--card); border-radius: 24px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        
+        /* QUICK ACTIONS */
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .action-btn { background: #334155; border: none; padding: 15px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; text-align: center; }
-        
-        textarea, select { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; padding: 12px; margin-bottom: 10px; font-family: inherit; font-size: 1rem; }
-        .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
-        
-        .history-item { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; line-height: 1.4; }
-        
-        #sos-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
-        .breath-circle { width: 140px; height: 140px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
+        .action-btn { background: #334155; border: none; padding: 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+
+        /* KRIZOVÝ MANUÁL */
+        .mantra-scroll { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 5px; scroll-snap-type: x mandatory; }
+        .mantra-card { min-width: 85%; background: rgba(82, 183, 136, 0.1); border-left: 3px solid var(--primary); padding: 12px; border-radius: 10px; scroll-snap-align: start; }
+        .mantra-card p { font-size: 0.85rem; font-style: italic; color: var(--text); }
+
+        /* POMOC PRO NI */
+        .help-list { list-style: none; }
+        .help-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; padding: 8px; background: rgba(0,0,0,0.1); border-radius: 8px; }
+
+        /* DENÍK */
+        .form-group { margin-bottom: 12px; }
+        textarea, select { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; padding: 10px; font-family: inherit; font-size: 0.9rem; }
+        .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+
+        /* MODAL */
+        #sos-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; }
+        .breath-circle { width: 130px; height: 130px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
         .animate-anger { animation: bAnger 6s infinite ease-in-out; }
         .animate-anxiety { animation: bAnxiety 12s infinite ease-in-out; }
         @keyframes bAnger { 0%, 100% { transform: scale(1); } 50% { transform: scale(2.2); } }
         @keyframes bAnxiety { 0%, 100% { transform: scale(1); } 40%, 60% { transform: scale(2.5); } }
+        
+        .grounding-step { font-size: 1.4rem; line-height: 1.5; color: var(--gold); }
         .close-sos { margin-top: 40px; color: var(--text-dim); text-decoration: underline; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header><h1>Klidný Táta 2.5</h1></header>
+    <header>
+        <h1>Klidný Táta 3.0</h1>
+        <div class="battery-header">
+            <div class="bat-box"><div id="bat-fill" class="bat-fill"></div></div>
+            <span id="streak-days" style="font-size: 0.8rem; font-weight: bold; color: var(--primary);">7 dní</span>
+        </div>
+    </header>
 
+    <!-- SOS SEKCE -->
     <div class="sos-grid">
         <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK</div>
         <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST</div>
+        <div class="sos-btn sos-ground" onclick="startSOS('ground')">🧱 UZEMNĚNÍ</div>
     </div>
 
+    <!-- AKCE -->
     <div class="action-row">
-        <!-- DEFINITIVNÍ OPRAVA: Inteligentní vyhledávací odkaz -->
-        <a href="https://www.youtube.com/results?search_query=uklidnujici+dest+relaxace+10+hodin" target="_blank" class="action-btn">
-            <span>🌧️</span> Déšť (YouTube)
-        </a>
-        <button class="action-btn" onclick="sendSignal()">
-            <span>❤️</span> Signál pro ni
-        </button>
+        <a href="https://www.youtube.com/results?search_query=rain+sounds+for+sleeping+no+ads" target="_blank" class="action-btn">🌧️ Déšť</a>
+        <button class="action-btn" onclick="sendSignal()">❤️ Signál pro ni</button>
     </div>
 
+    <!-- KRIZOVÝ MANUÁL -->
+    <section>
+        <span class="label">Krizový manuál: Dvojčata</span>
+        <div class="mantra-scroll">
+            <div class="mantra-card"><p>"Děti neútočí na tebe. Jen mají nezvládnutou emoci a ty jsi jejich bezpečí."</p></div>
+            <div class="mantra-card"><p>"Odchod na 60 sekund do jiné místnosti není selhání, ale záchranná brzda."</p></div>
+            <div class="mantra-card"><p>"Tento chaos je dočasný. Dvojčata vyrostou, tvá trpělivost zůstane."</p></div>
+        </div>
+    </section>
+
+    <!-- MISE DNE -->
     <section class="card">
-        <span class="label">Mise na dnešek</span>
-        <div id="task-me" style="margin-bottom:10px;"><b>PRO MĚ:</b> <p>Načítání...</p></div>
-        <div id="task-her"><b>PRO NI:</b> <p>Načítání...</p></div>
+        <span class="label">Dnešní mikrokroky</span>
+        <div id="task-me" style="margin-bottom:12px;"><b>PRO MĚ:</b> <p>5 minut ticha v autě.</p></div>
+        <div id="task-her"><b>PRO NI:</b> <p>Uvař čaj bez ptaní.</p></div>
+    </section>
+
+    <!-- POMOC PRO NI -->
+    <section class="card">
+        <span class="label">Okamžitá pomoc pro ni (Neptej se, udělej)</span>
+        <ul class="help-list">
+            <li class="help-item">📦 Převezmi večerní koupání/přebalování</li>
+            <li class="help-item">🥗 Objednej jídlo nebo ukliď kuchyň</li>
+            <li class="help-item">🚶‍♂️ Vezmi děti na 20 min ven (i v kočárku)</li>
+        </ul>
+    </section>
+
+    <!-- DENÍK -->
+    <section class="card">
+        <span class="label">Večerní reflexe & vítězství</span>
+        <div class="form-group">
+            <select id="anger-level">
+                <option value="0">Vztek: 0 - Klid</option>
+                <option value="3">Vztek: 3 - Výbuch</option>
+                <option value="5">Vztek: 5 - Zkrat</option>
+            </select>
+        </div>
+        <textarea id="victory" rows="2" placeholder="Moje dnešní malé vítězství (kdy jsem to zvládl)?"></textarea>
+        <textarea id="note" rows="2" placeholder="Jak jsem ji dnes podpořil?"></textarea>
+        <button class="save-btn" onclick="saveEntry()">Uložit a dobít baterii</button>
     </section>
 
     <section class="card">
-        <span class="label">Večerní zápis</span>
-        <select id="anger-level">
-            <option value="0">Vztek: 0 - Klid</option>
-            <option value="1">1 - Podráždění</option>
-            <option value="2">2 - Prodýcháno</option>
-            <option value="3">3 - Hlasitější</option>
-            <option value="4">4 - Výbuch</option>
-            <option value="5">5 - Zkrat</option>
-        </select>
-        <textarea id="note" rows="2" placeholder="Důvod vzteku / Jak jsi ji podpořil?"></textarea>
-        <button class="save-btn" onclick="saveEntry()">Uložit den</button>
-    </section>
-
-    <section class="card">
-        <span class="label">Historie</span>
-        <div id="history-list"></div>
+        <span class="label">Historie úspěchů</span>
+        <div id="history-list" style="max-height: 150px; overflow-y: auto;"></div>
     </section>
 </div>
 
+<!-- SOS MODAL -->
 <div id="sos-modal">
-    <div id="breath-circle" class="breath-circle"></div>
-    <h2 id="sos-instruction" style="font-weight:300;">Dýchej s kruhem...</h2>
+    <div id="modal-content">
+        <div id="breath-circle" class="breath-circle"></div>
+        <h2 id="sos-instruction" style="font-weight:300;"></h2>
+    </div>
     <div class="close-sos" onclick="stopSOS()">Zavřít</div>
 </div>
 
 <script>
-    const tasksMe = [
-        "Zůstaň 5 minut v autě před domem.",
-        "Dnes večer odlož telefon do šuplíku.",
-        "Než odpovíš na výčitku, 3x hluboký nádech.",
-        "Studená sprcha hned po příchodu domů.",
-        "Mluv dnes o 20 % tišeji než obvykle."
+    const tasksMe = ["Vypni rádio v autě a dýchej.", "Dnes bez ironických poznámek.", "Studená sprcha po práci.", "10 dechů před vstupem domů."];
+    const tasksHer = ["Polož jí ruku na rameno bez slov.", "Udělej jí kafe/čaj.", "Ukliď předsíň/nepořádek.", "Napiš jí povzbuzující SMS."];
+    
+    let groundingStep = 0;
+    const groundingText = [
+        "Najdi 5 věcí, které VIDÍŠ",
+        "Najdi 4 věci, kterých se můžeš DOTKNOUT",
+        "Najdi 3 věci, které SLYŠÍŠ",
+        "Najdi 2 věci, které CÍTÍŠ (vůně)",
+        "Najdi 1 věc, kterou můžeš OCHUTNAT",
+        "Jsi zpátky v realitě. Dýchej."
     ];
-    const tasksHer = [
-        "Uvař jí čaj bez ptaní.",
-        "Vyzvedni dvojčata na 20 minut ven.",
-        "Umyj nádobí po večeři sám.",
-        "Napiš jí zprávu: 'Jsi skvělá, večer ti pomůžu'.",
-        "Dnes ji 15 minut jen poslouchej bez rad."
-    ];
-
-    function sendSignal() {
-        const msg = "Ahoj lasko, moc na tebe myslim. Jsi statecna. Večer jsem v tom s tebou. ❤️";
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const link = isIOS ? `sms:&body=${encodeURIComponent(msg)}` : `sms:?body=${encodeURIComponent(msg)}`;
-        
-        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            window.location.href = link;
-        } else {
-            alert("Funkční pouze v mobilu. Text: " + msg);
-        }
-    }
 
     function startSOS(type) {
         document.getElementById('sos-modal').style.display = 'flex';
         const circle = document.getElementById('breath-circle');
-        circle.className = 'breath-circle ' + (type === 'anger' ? 'animate-anger' : 'animate-anxiety');
-        document.getElementById('sos-instruction').innerText = type === 'anger' ? "DÝCHEJ S KRUHEM (VZTEK)" : "POMALÉ UVOLNĚNÍ (ÚZKOST)";
+        const inst = document.getElementById('sos-instruction');
+        circle.style.display = 'block';
+        
+        if(type === 'anger') {
+            inst.innerText = "DÝCHEJ S KRUHEM (VZTEK)";
+            circle.className = 'breath-circle animate-anger';
+        } else if(type === 'anxiety') {
+            inst.innerText = "POMALÉ UVOLNĚNÍ (ÚZKOST)";
+            circle.className = 'breath-circle animate-anxiety';
+        } else if(type === 'ground') {
+            circle.style.display = 'none';
+            groundingStep = 0;
+            nextGrounding();
+        }
     }
+
+    function nextGrounding() {
+        if(groundingStep < groundingText.length) {
+            document.getElementById('sos-instruction').innerHTML = `<div class="grounding-step">${groundingText[groundingStep]}</div><br><button onclick="nextGrounding()" style="background:var(--gold); border:none; padding:10px 20px; border-radius:10px; font-weight:bold;">MÁM</button>`;
+            groundingStep++;
+        }
+    }
+
     function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; }
+
+    function sendSignal() {
+        const msg = "Ahoj lasko, jen ti chci rict, ze jsi skvela mama a vazim si vseho, co delas. Vecer v tom budeme spolu. ❤️";
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        window.location.href = isIOS ? `sms:&body=${encodeURIComponent(msg)}` : `sms:?body=${encodeURIComponent(msg)}`;
+    }
 
     function saveEntry() {
         const entry = {
             date: new Date().toLocaleDateString(),
-            anger: document.getElementById('anger-level').value,
+            anger: parseInt(document.getElementById('anger-level').value),
+            victory: document.getElementById('victory').value,
             note: document.getElementById('note').value
         };
-        let logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
+        let logs = JSON.parse(localStorage.getItem('calm_logs_v3') || '[]');
         logs.push(entry);
-        localStorage.setItem('calm_logs', JSON.stringify(logs));
-        alert("Zapsáno.");
+        localStorage.setItem('calm_logs_v3', JSON.stringify(logs));
+        
+        document.getElementById('victory').value = "";
         document.getElementById('note').value = "";
         updateStats();
+        alert("Zapsáno. Dnešní vítězství uloženo.");
     }
 
     function updateStats() {
-        const logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
+        const logs = JSON.parse(localStorage.getItem('calm_logs_v3') || '[]');
+        const streak = logs.filter(l => l.anger < 3).length;
+        document.getElementById('streak-days').innerText = `${streak} dní`;
+        document.getElementById('bat-fill').style.width = Math.min(streak * 10, 100) + '%';
+
         const list = document.getElementById('history-list');
-        list.innerHTML = logs.slice().reverse().map(l => `
-            <div class="history-item">
-                <b>${l.date}</b>: Vztek ${l.anger}/5<br>
-                <i style="color:var(--text-dim)">${l.note || 'Bez poznámky'}</i>
+        list.innerHTML = logs.slice(-5).reverse().map(l => `
+            <div style="font-size:0.8rem; border-bottom:1px solid #334155; padding:8px 0;">
+                <b>${l.date}</b>: ${l.victory || 'Bez zápisu vítězství'}
             </div>
-        `).join('') || '<p style="color:var(--text-dim); font-size:0.8rem">Zatím žádné záznamy.</p>';
+        `).join('') || 'Zatím žádná historie.';
     }
 
     window.onload = function() {
