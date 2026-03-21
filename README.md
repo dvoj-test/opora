@@ -100,3 +100,15 @@ Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
 2. **Klikni kamkoliv na obrazovku** (tím povolíš prohlížeči přehrávat zvuk).
 3. **Pusť déšť.** Měl bys slyšet jemné bubnování na střechu.
 4. **Zkus Signál pro ni.** Měla by se ti otevřít SMS s textem pro manželku.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v2.4
+
+## 🛠️ Změny ve verzi 2.4
+- **Oprava YouTube odkazu:** Původní video bylo nedostupné. Nasazen trvalý odkaz na 10hodinový relaxační déšť (prověřeno).
+- **Zjednodušení UI:** Čistší rozvržení pro bleskovou navigaci v krizi.
+- **Oprava historie:** Stabilnější ukládání večerních záznamů.
+
+## 🚀 Jak aplikaci používat
+1. **SOS sekce:** Klikni okamžitě, když cítíš, že v tobě "vřou saze".
+2. **Déšť:** Ideální po cestě z práce nebo v koupelně pro rychlou zvukovou izolaci.
+3. **Signál:** Nezapomeň poslat alespoň jednou za dva dny pro udržení morálky manželky.
