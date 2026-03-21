@@ -81,6 +81,20 @@ Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
 - **Signál pro ni (SMS):** Opravena kompatibilita. Systém nyní rozpozná iPhone vs Android a správně předvyplní SMS zprávu. (Poznámka: Funkční pouze na mobilu).
 - **Zjednodušení:** Vyčištěn kód pro rychlejší odezvu SOS tlačítek.
 
+- # 🛡️ Klidný Táta (Projekt Opora) - v2.3
+
+## 🛠️ Změny ve verzi 2.3
+- **Audio (YouTube):** Nahrazen nespolehlivý interní přehrávač přímým odkazem na uklidňující déšť na YouTube. Funguje na všech zařízeních a na pozadí.
+- **Oprava SMS (Signál pro ni):** Upřesněna logika pro iPhone a Android. Tlačítko nyní spolehlivě otevírá aplikaci Zprávy s předvyplněným textem.
+- **Rozšíření misí:** Doplněny nové mikrokroky pro tátu a pro ženu.
+- **Historizace:** Zpřehledněno zobrazení historie deníku.
+
+## 🚀 Hlavní nástroje
+- **🔥 SOS Vztek:** 6s dechový cyklus pro stop-stav hněvu.
+- **🌪️ SOS Úzkost:** 12s dechový cyklus pro zklidnění po práci.
+- **🌧️ Déšť (YT):** Okamžitý únik do zvukové izolace.
+- **❤️ Signál:** Blesková SMS podpora manželce jedním kliknutím.
+
 ## 🚀 Jak používat
 1. **Otevři odkaz v mobilu.**
 2. **Klikni kamkoliv na obrazovku** (tím povolíš prohlížeči přehrávat zvuk).
