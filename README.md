@@ -52,3 +52,24 @@ Pro nejlepší zážitek (bez adresního řádku, na celou obrazovku):
 - **Jazyk:** Čisté HTML5, CSS3 a JavaScript.
 - **Backend:** Žádný (soukromí především). Data jsou uložena pouze lokálně v tvém zařízení.
 - **Autor:** AI Asistent & Klidný Táta
+
+# 🛡️ Klidný Táta (Projekt Opora) - v2.1
+
+Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
+
+## 🛠️ Změny ve verzi 2.1
+- **Oprava zvuku:** Nahrazen placeholder skutečným zvukem přírodního deště pro zklidnění.
+- **Audio logika:** Opraveno chování tlačítka pro zvuk deště (přidána vizuální indikace "Hraje").
+- **Optimalizace:** Zmenšení kódu pro bleskové načítání na slabém signálu.
+
+## 💎 Funkce
+- **SOS Režimy:** VZTEK (rychlý) a ÚZKOST (pomalý) dechový cyklus.
+- **Mikro-kroky:** Denní mise pro tebe a pro ženu (střídá se automaticky).
+- **Audio Opora:** Přírodní bílý šum (déšť) pro izolaci od hluku.
+- **Signál:** Rychlá SMS podpora manželce.
+- **Deník:** Ukládání historie a sledování výbuchů vzteku.
+
+## 📱 Jak používat
+1. Otevři v mobilu.
+2. Přidej na plochu jako ikonu.
+3. Audio déšť doporučujeme používat se sluchátky pro maximální efekt odpojení od chaosu.
