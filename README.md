@@ -73,3 +73,16 @@ Osobní mikro-aplikace pro krizové řízení domácnosti s dvojčaty.
 1. Otevři v mobilu.
 2. Přidej na plochu jako ikonu.
 3. Audio déšť doporučujeme používat se sluchátky pro maximální efekt odpojení od chaosu.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v2.2
+
+## 🛠️ Opravy ve verzi 2.2
+- **Audio (Déšť):** Přidány duplicitní zdroje zvuku (OGG a M4A) pro maximální kompatibilitu s iPhone i Androidem. Přidána vizuální indikace přehrávání.
+- **Signál pro ni (SMS):** Opravena kompatibilita. Systém nyní rozpozná iPhone vs Android a správně předvyplní SMS zprávu. (Poznámka: Funkční pouze na mobilu).
+- **Zjednodušení:** Vyčištěn kód pro rychlejší odezvu SOS tlačítek.
+
+## 🚀 Jak používat
+1. **Otevři odkaz v mobilu.**
+2. **Klikni kamkoliv na obrazovku** (tím povolíš prohlížeči přehrávat zvuk).
+3. **Pusť déšť.** Měl bys slyšet jemné bubnování na střechu.
+4. **Zkus Signál pro ni.** Měla by se ti otevřít SMS s textem pro manželku.
