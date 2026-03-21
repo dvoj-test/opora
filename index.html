@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Klidný Táta | Opora</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --primary: #52b788;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header { text-align: center; padding: 10px 0; }
+        header h1 { font-size: 1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
+
+        .sos-btn {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .card { background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        .mission { display: flex; gap: 15px; margin-bottom: 15px; }
+        .mission b { display: block; color: var(--primary); font-size: 0.8rem; margin-bottom: 2px; }
+        .mission p { font-size: 0.95rem; line-height: 1.4; margin: 0; }
+
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: white;
+            padding: 12px;
+            font-family: inherit;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .btn { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: 600; cursor: pointer; }
+
+        .tracker { display: flex; align-items: center; gap: 15px; }
+        .bar-bg { flex-grow: 1; height: 12px; background: #334155; border-radius: 6px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1.5s ease-in-out; }
+
+        #sos-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .breath-circle {
+            width: 120px; height: 120px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: breathe 8s infinite ease-in-out;
+            margin-bottom: 50px;
+            box-shadow: 0 0 60px var(--primary);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(2.4); opacity: 0.8; }
+        }
+
+        .close-sos { color: var(--text-dim); text-decoration: underline; margin-top: 50px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header><h1>Klidný Táta</h1></header>
+
+    <div class="sos-btn" onclick="openSOS()">🚨 SOS: CHCI VYBOUCHNOUT</div>
+
+    <section>
+        <span class="label">Dnešní mikrokroky</span>
+        <div class="card">
+            <div class="mission">
+                <span>🧘‍♂️</span>
+                <div><b>PRO TEBE</b><p>5 min ticha v autě před příchodem domů. Prodýchej pracovní stres.</p></div>
+            </div>
+            <div style="border-top: 1px solid #2d3748; margin: 10px 0; padding-top: 10px;" class="mission">
+                <span>🍵</span>
+                <div><b>PRO ŽENU</b><p>Udělej jí dnes nápoj bez ptaní a 20 minut jen poslouchej bez rad.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <span class="label">Večerní vydechnutí</span>
+        <div class="card">
+            <textarea id="journal" rows="3" placeholder="Co tě vytočilo? Jak jsi ji podpořil?"></textarea>
+            <button class="btn" onclick="save()">Uložit a vyčistit hlavu</button>
+        </div>
+    </section>
+
+    <section>
+        <span class="label">Baterie odolnosti</span>
+        <div class="card tracker">
+            <div class="bar-bg"><div id="fill" class="bar-fill"></div></div>
+            <div style="font-weight:bold; color:var(--primary)" id="streak">7 dní</div>
+        </div>
+    </section>
+</div>
+
+<div id="sos-modal">
+    <div class="breath-circle"></div>
+    <h2 id="sos-text" style="font-weight:300; line-height:1.5;">Dýchej s kruhem...<br>Dvojčata to nedělají naschvál.<br>Teď tě potřebují klidného.</h2>
+    <div class="close-sos" onclick="document.getElementById('sos-modal').style.display='none'">Už je to lepší</div>
+</div>
+
+<script>
+    const quotes = [
+        "Dýchej... Jsou to jen děti. Učí se od tebe.",
+        "Teď jsi jejich kotva. Nádech... výdech...",
+        "Žena je vyčerpaná stejně jako ty. Buďte tým.",
+        "Ten vztek je jen vlna. Nech ji projít.",
+        "Jsi skvělý táta, jen je toho teď moc. Zpomal."
+    ];
+
+    function openSOS() {
+        document.getElementById('sos-text').innerHTML = quotes[Math.floor(Math.random()*quotes.length)];
+        document.getElementById('sos-modal').style.display = 'flex';
+        if(window.navigator.vibrate) window.navigator.vibrate(200);
+    }
+
+    function save() {
+        const text = document.getElementById('journal').value;
+        if(text) {
+            localStorage.setItem('calm_dad_note', text);
+            alert('Zapsáno. Teď to můžeš pustit z hlavy.');
+            document.getElementById('journal').value = '';
+        }
+    }
+
+    window.onload = () => {
+        setTimeout(() => {
+            document.getElementById('fill').style.width = '70%';
+        }, 300);
+    }
+</script>
+</body>
+</html>
