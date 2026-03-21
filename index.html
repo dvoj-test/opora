@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Klidný Táta 2.3</title>
+    <title>Klidný Táta 2.4</title>
     <style>
         :root {
             --bg: #0f172a; --card: #1e293b; --primary: #52b788; --accent: #3b82f6;
@@ -15,27 +15,22 @@
         header { text-align: center; padding: 10px 0; }
         header h1 { font-size: 1rem; font-weight: 300; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; }
         
-        /* SOS SEKCE */
         .sos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .sos-btn { padding: 20px; border-radius: 20px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; transition: 0.2s; }
         .sos-anger { border-color: var(--danger); color: var(--danger); background: rgba(239, 68, 68, 0.1); }
         .sos-anxiety { border-color: var(--accent); color: var(--accent); background: rgba(59, 130, 246, 0.1); }
         
         .card { background: var(--card); border-radius: 24px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
         
-        /* AKCE */
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .action-btn { background: #334155; border: none; padding: 15px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+        .action-btn { background: #334155; border: none; padding: 15px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; text-align: center; }
         
-        /* DENÍK */
         textarea, select { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; padding: 12px; margin-bottom: 10px; font-family: inherit; font-size: 1rem; }
         .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
         
-        /* HISTORIE */
         .history-item { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; line-height: 1.4; }
         
-        /* SOS MODAL */
         #sos-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
         .breath-circle { width: 140px; height: 140px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
         .animate-anger { animation: bAnger 6s infinite ease-in-out; }
@@ -48,16 +43,16 @@
 <body>
 
 <div class="container">
-    <header><h1>Klidný Táta 2.3</h1></header>
+    <header><h1>Klidný Táta 2.4</h1></header>
 
     <div class="sos-grid">
-        <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK<br><small style="font-weight:normal">Zklidnění</small></div>
-        <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST<br><small style="font-weight:normal">Uzemnění</small></div>
+        <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK</div>
+        <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST</div>
     </div>
 
     <div class="action-row">
-        <!-- ZMĚNA: Tlačítko na YouTube -->
-        <a href="https://www.youtube.com/watch?v=mPZkdNFqeps" target="_blank" class="action-btn">
+        <!-- NOVÝ OVĚŘENÝ ODKAZ NA 10 HODIN DEŠTĚ -->
+        <a href="https://www.youtube.com/watch?v=tj9d6ahu4_4" target="_blank" class="action-btn">
             <span>🌧️</span> Déšť (YouTube)
         </a>
         <button class="action-btn" onclick="sendSignal()">
@@ -81,56 +76,50 @@
             <option value="4">4 - Výbuch</option>
             <option value="5">5 - Zkrat</option>
         </select>
-        <textarea id="note" rows="2" placeholder="Jak jsi ji dnes podpořil?"></textarea>
-        <button class="save-btn" onclick="saveEntry()">Uložit den a vyčistit hlavu</button>
+        <textarea id="note" rows="2" placeholder="Důvod vzteku / Jak jsi ji podpořil?"></textarea>
+        <button class="save-btn" onclick="saveEntry()">Uložit den</button>
     </section>
 
     <section class="card">
-        <span class="label">Historie zápisů</span>
-        <div id="history-list">
-            <!-- Historie se načte zde -->
-        </div>
+        <span class="label">Historie</span>
+        <div id="history-list"></div>
     </section>
 </div>
 
 <div id="sos-modal">
     <div id="breath-circle" class="breath-circle"></div>
-    <h2 id="sos-instruction" style="font-weight:300;">Dýchej...</h2>
+    <h2 id="sos-instruction" style="font-weight:300;">Dýchej s kruhem...</h2>
     <div class="close-sos" onclick="stopSOS()">Zavřít</div>
 </div>
 
 <script>
     const tasksMe = [
-        "Zůstaň 5 minut v autě před příchodem domů.",
-        "Dej si studenou sprchu hned po práci.",
-        "Dnes večer odlož telefon do jiné místnosti.",
-        "Než odpovíš na výčitku, 3x se nadechni.",
-        "Před vstupem domů si vybav jeden důvod, proč svou ženu miluješ.",
-        "Dnes zkus mluvit o 20 % tišeji než obvykle."
+        "Zůstaň 5 minut v autě před domem.",
+        "Dnes večer odlož telefon do šuplíku.",
+        "Než odpovíš na výčitku, 3x hluboký nádech.",
+        "Studená sprcha hned po příchodu domů.",
+        "Mluv dnes o 20 % tišeji než obvykle."
     ];
     const tasksHer = [
-        "Uvař jí čaj bez ptaní a jen jí ho dones.",
+        "Uvař jí čaj bez ptaní.",
         "Vyzvedni dvojčata na 20 minut ven.",
-        "Umyj nádobí po večeři úplně sám.",
+        "Umyj nádobí po večeři sám.",
         "Napiš jí zprávu: 'Jsi skvělá, večer ti pomůžu'.",
-        "Zeptej se jí: 'Co pro tebe můžu teď udělat?'",
         "Dnes ji 15 minut jen poslouchej bez rad."
     ];
 
-    // SMS LOGIKA
     function sendSignal() {
-        const msg = "Ahoj lasko, moc na tebe myslim. Jsi statecna, jak to zvladas. Vecer jsem v tom s tebou. ❤️";
+        const msg = "Ahoj lasko, moc na tebe myslim. Jsi statecna. Večer jsem v tom s tebou. ❤️";
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const link = isIOS ? `sms:&body=${encodeURIComponent(msg)}` : `sms:?body=${encodeURIComponent(msg)}`;
         
         if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             window.location.href = link;
         } else {
-            alert("Tato funkce funguje pouze v mobilu. Text: " + msg);
+            alert("Funkční pouze v mobilu. Text: " + msg);
         }
     }
 
-    // SOS MODAL
     function startSOS(type) {
         document.getElementById('sos-modal').style.display = 'flex';
         const circle = document.getElementById('breath-circle');
@@ -139,7 +128,6 @@
     }
     function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; }
 
-    // DENÍK & HISTORIE
     function saveEntry() {
         const entry = {
             date: new Date().toLocaleDateString(),
@@ -149,7 +137,7 @@
         let logs = JSON.parse(localStorage.getItem('calm_logs') || '[]');
         logs.push(entry);
         localStorage.setItem('calm_logs', JSON.stringify(logs));
-        alert("Zapsáno. Jsi o krok blíž ke klidu.");
+        alert("Zapsáno.");
         document.getElementById('note').value = "";
         updateStats();
     }
