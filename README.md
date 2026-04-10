@@ -158,3 +158,15 @@ Mentální asistent pro zvládání emocí, úzkostí a podporu rodiny.
 - **🔥 SOS Režimy:** Vztek, Úzkost (dech), Uzemnění (smysly).
 - **📝 Duální deník:** Záznam vnější reakce (vztek) a vnitřního stavu (úzkost).
 - **🏆 Focus na vítězství:** Každý den si zapiš, co se ti povedlo zvládnout v klidu.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v3.2
+
+## 🆕 Novinky ve verzi 3.2
+- **📊 Týdenní Report (Analýza):** Nová funkce, která po 3 a více dnech vyhodnotí tvůj stav.
+- **🧠 Inteligentní interpretace:** Aplikace neukazuje jen čísla, ale vysvětlí ti rozdíl mezi tvou vnitřní úzkostí a vnějšími reakcemi.
+- **⚠️ Varování před vyhořením:** Identifikuje dny, kdy jsi "Pevná skála" (potlačuješ úzkost, abys nevybuchl), a doporučí ti odpočinek.
+
+## 🛠️ Funkce
+- **SOS Moduly:** Vztek, Úzkost, Uzemnění 5-4-3-2-1.
+- **Deník:** Sledování úzkosti (vnitřní tlak) a vzteku (vnější projev).
+- **Sumarizace:** Týdenní náhled na to, zda jsi v rovnováze, nebo pod neudržitelným tlakem.
