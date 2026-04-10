@@ -143,3 +143,18 @@ Mentální asistent pro zvládání stresu, výchovu dvojčat a aktivní podporu
 
 ## 📱 Jak používat
 Doporučujeme mít aplikaci na ploše mobilu jako ikonu. SOS tlačítka používej dříve, než hněv dosáhne vrcholu. Večerní zápis vítězství ti pomůže přenastavit mozek na vnímání úspěchů místo selhání.
+
+
+# 🛡️ Klidný Táta (Projekt Opora) - v3.1
+
+Mentální asistent pro zvládání emocí, úzkostí a podporu rodiny.
+
+## 🆕 Novinky ve verzi 3.1
+- **🌪️ Sledování úzkosti:** Do večerní reflexe přidáno hodnocení vnitřní úzkosti (0-5). Pomáhá identifikovat dny, kdy jsi pod tlakem, i když navenek nevybuchneš.
+- **📊 Rozšířená historie:** V přehledu historie nyní vidíš oba parametry vedle sebe (Vztek vs. Úzkost).
+- **🔋 Baterie odolnosti:** Stále navázána na "absenci výbuchů", aby tě motivovala k sebekontrole v akci.
+
+## 🛠️ Funkce
+- **🔥 SOS Režimy:** Vztek, Úzkost (dech), Uzemnění (smysly).
+- **📝 Duální deník:** Záznam vnější reakce (vztek) a vnitřního stavu (úzkost).
+- **🏆 Focus na vítězství:** Každý den si zapiš, co se ti povedlo zvládnout v klidu.
