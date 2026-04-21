@@ -229,6 +229,57 @@ Terapeutická edice s automatickým emailovým exportem.
 - **🔥 SOS Režimy:** Vztek, Úzkost, Uzemnění 5-4-3-2-1.
 3. Aplikace se začne otevírat na celou obrazovku bez lišt prohlížeče.
 
+  # 🛡️ Klidný Táta (Projekt Opora) - v4.2.1 (Therapeutic & Analytics Edition)
+
+Osobní mikronástroj navržený jako mentální štít otce pro zvládání extrémního stresu, prevenci výbuchů hněvu a monitoring úzkostných stavů. Aplikace je optimalizována pro potřeby otců dvojčat a partnerů vyčerpaných podnikatelek.
+
+## 🚀 Živá aplikace
+**Odkaz:** [https://TVOJE-JMENO.github.io/opora/](https://YOUR-USERNAME.github.io/opora/)  
+*(Nezapomeň v odkazu nahradit YOUR-USERNAME svým jménem na GitHubu)*
+
+---
+
+## 💎 Hlavní terapeutické moduly
+
+### ⚡ Bleskový záznam úzkosti (Flash Trigger Logging)
+- **Okamžitá externalizace:** Možnost zaznamenat spouštěč úzkosti hned v momentě, kdy vznikne (v práci, v autě).
+- **Prevence kumulace:** Pomáhá předejít večerním výbuchům tím, že emoci pojmenuje a "odloží" do aplikace dříve, než se vrátíš domů k rodině.
+
+### 📧 Inteligentní Email Report & Reflexe
+- **Automatizovaný týdenní souhrn:** Jedním kliknutím vygeneruješ přehledný report celého týdne a odešleš ho na svůj email (dan.vojnovic@gmail.com).
+- **Záloha & Kontinuita:** Email slouží jako trvalý archiv tvého pokroku, ke kterému se můžeš vrátit i při ztrátě dat v telefonu.
+- **Nedělní budík:** Vizuální upomínka v aplikaci, která tě každou neděli motivuje k uzavření týdne.
+
+### 📑 Modul pro psychoterapeuta
+- **Export dat:** Speciální tabulkové zobrazení historie navržené pro přímé sdílení na terapeutickém sezení.
+- **Analýza vzorců:** Umožňuje odborníkovi vidět korelaci mezi tvou vnitřní úzkostí, hladinou sebevědomí a vnějšími reakcemi (vztekem).
+
+---
+
+## 🛠️ SOS a krizové nástroje
+
+- **🔥 SOS Vztek:** 6sekundový dechový rytmus pro rychlé odbourání adrenalinu.
+- **🌪️ SOS Úzkost:** 12sekundový zklidňující cyklus pro stabilizaci tepu.
+- **🧱 Uzemnění 5-4-3-2-1:** Interaktivní průvodce smyslovým vnímáním pro zastavení paniky.
+- **❤️ Signál pro ni:** Blesková SMS podpora manželce (předvyplněný text pro úsporu času).
+- **🌧️ Audio izolace:** Rychlý proklik na YouTube relaxační déšť pro odstřižení se od okolního chaosu.
+
+---
+
+## 🔐 Soukromí a technická specifikace
+- **Local-First:** Veškerá data o pocitech, úzkostech a zápisech zůstávají **pouze ve tvém zařízení**. Aplikace neodesílá žádná data na servery (soukromí je prioritou č. 1).
+- **Resilience Tracker:** Baterie v záhlaví vizuálně motivuje k udržení "streaku" bez emočních výbuchů.
+
+## 📱 Instalace do mobilu (Doporučeno)
+Pro funkci na celou obrazovku:
+1. Otevři odkaz v prohlížeči v mobilu.
+2. Zvol **Sdílet** (iPhone) nebo **Menu** (Android).
+3. Klikni na **„Přidat na plochu“**.
+
+---
+**Status projektu:** Plně funkční terapeutický nástroj (v4.2.1)  
+**Metodika:** Kombinace CBT (Kognitivně-behaviorální terapie), Mindfulness a Sebekoučinku.
+
 ---
 **Autor:** AI Coach & Klidný Táta  
 **Status:** Aktivní vývoj (Therapeutic Phase)
