@@ -3,234 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Klidný Táta 3.2</title>
+    <title>Opora 4.1 | Terapeutický deník</title>
     <style>
         :root {
-            --bg: #0f172a; --card: #1e293b; --primary: #52b788; --accent: #3b82f6;
+            --bg: #0b0f19; --card: #161e2d; --primary: #52b788; --accent: #3b82f6;
             --danger: #ef4444; --text: #f1f5f9; --text-dim: #94a3b8; --gold: #fbc02d;
-            --anxiety-color: #a855f7;
+            --anxiety-color: #a855f7; --esteem-color: #ec4899;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 60px; }
-        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 20px; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
+        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
         
-        header { text-align: center; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 0.9rem; font-weight: 300; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+        header { text-align: center; padding: 5px 0; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 0.8rem; font-weight: 300; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
 
-        .battery-header { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 15px; }
-        .bat-box { width: 40px; height: 20px; border: 2px solid var(--text-dim); border-radius: 4px; position: relative; padding: 2px; }
-        .bat-box::after { content: ''; position: absolute; right: -6px; top: 4px; width: 4px; height: 8px; background: var(--text-dim); border-radius: 0 2px 2px 0; }
+        .battery-header { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 12px; }
+        .bat-box { width: 35px; height: 16px; border: 1.5px solid var(--text-dim); border-radius: 3px; position: relative; }
         .bat-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s; }
 
+        /* SOS SEKCE */
         .sos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-        .sos-btn { padding: 15px 5px; border-radius: 15px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; font-size: 0.75rem; transition: 0.2s; }
+        .sos-btn { padding: 12px 5px; border-radius: 12px; text-align: center; font-weight: bold; cursor: pointer; border: 2px solid; font-size: 0.7rem; }
         .sos-anger { border-color: var(--danger); color: var(--danger); background: rgba(239, 68, 68, 0.1); }
         .sos-anxiety { border-color: var(--accent); color: var(--accent); background: rgba(59, 130, 246, 0.1); }
         .sos-ground { border-color: var(--gold); color: var(--gold); background: rgba(251, 192, 45, 0.1); }
 
-        .card { background: var(--card); border-radius: 20px; padding: 18px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        .label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .card { background: var(--card); border-radius: 20px; padding: 18px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
+        .label { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         
-        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .action-btn { background: #334155; border: none; padding: 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
-        .btn-report { background: var(--gold) !important; color: #0f172a !important; font-weight: bold; grid-column: span 2; }
+        /* RYCHLÉ AKCE */
+        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .action-btn { background: #1e293b; border: none; padding: 12px; border-radius: 10px; color: white; cursor: pointer; font-size: 0.75rem; text-decoration: none; text-align: center; }
+        
+        /* RYCHLÝ TRIGGER ZÁZNAM */
+        .trigger-btn { background: var(--anxiety-color) !important; color: white !important; font-weight: bold; grid-column: span 2; padding: 15px !important; }
 
-        .rating-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        textarea, select { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; padding: 10px; font-family: inherit; font-size: 0.9rem; margin-bottom: 10px; }
-        .save-btn { background: var(--primary); color: #0f172a; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        /* FORMULÁŘ */
+        .rating-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        textarea, select { width: 100%; background: #0b0f19; border: 1px solid #334155; border-radius: 10px; color: white; padding: 12px; font-family: inherit; font-size: 0.9rem; margin-bottom: 8px; }
+        .save-btn { background: var(--primary); color: #0b0f19; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
 
-        .history-item { font-size: 0.8rem; border-bottom: 1px solid #334155; padding: 10px 0; }
+        /* HISTORIE */
+        .history-list { max-height: 400px; overflow-y: auto; }
+        .history-item { font-size: 0.8rem; border-bottom: 1px solid #334155; padding: 15px 0; line-height: 1.5; position: relative; }
+        .item-date { color: var(--text-dim); font-size: 0.7rem; margin-bottom: 5px; display: block; }
         .tag { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; margin-right: 5px; }
         .tag-anger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
         .tag-anxiety { background: rgba(168, 85, 247, 0.2); color: var(--anxiety-color); }
+        .tag-esteem { background: rgba(236, 72, 153, 0.2); color: var(--esteem-color); }
 
-        #sos-modal, #report-modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; overflow-y: auto; }
-        .breath-circle { width: 130px; height: 130px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 50px var(--primary); margin-bottom: 40px; }
-        .animate-anger { animation: bAnger 6s infinite ease-in-out; }
-        .animate-anxiety { animation: bAnxiety 12s infinite ease-in-out; }
-        @keyframes bAnger { 0%, 100% { transform: scale(1); } 50% { transform: scale(2.2); } }
-        @keyframes bAnxiety { 0%, 100% { transform: scale(1); } 40%, 60% { transform: scale(2.5); } }
-        .close-btn { margin-top: 30px; color: var(--text-dim); text-decoration: underline; cursor: pointer; padding: 10px; }
+        /* MODALY */
+        .modal { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; overflow-y: auto; }
+        .modal-content { text-align: left; background: var(--card); padding: 20px; border-radius: 20px; width: 100%; max-width: 450px; }
+        .close-btn { margin-top: 25px; color: var(--text-dim); text-decoration: underline; cursor: pointer; padding: 10px; }
         
-        /* REPORT STYLES */
-        .report-content { text-align: left; background: var(--card); padding: 20px; border-radius: 20px; width: 100%; max-width: 400px; }
-        .summary-title { color: var(--gold); font-weight: bold; margin-bottom: 10px; display: block; }
+        .export-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+        .export-table th, .export-table td { border: 1px solid #334155; padding: 8px; text-align: left; }
+
+        @keyframes breathe { 0%, 100% { transform: scale(1); opacity:0.3; } 50% { transform: scale(2.2); opacity:0.8; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Klidný Táta 3.2</h1>
+        <h1>Klidný Táta 4.1</h1>
         <div class="battery-header">
             <div class="bat-box"><div id="bat-fill" class="bat-fill"></div></div>
-            <span id="streak-days" style="font-size: 0.8rem; font-weight: bold; color: var(--primary);">0 dní</span>
+            <span id="streak-days" style="font-size: 0.7rem; font-weight: bold; color: var(--primary);">0 dní</span>
         </div>
     </header>
 
+    <!-- SOS SEKCE -->
     <div class="sos-grid">
         <div class="sos-btn sos-anger" onclick="startSOS('anger')">🔥 VZTEK</div>
         <div class="sos-btn sos-anxiety" onclick="startSOS('anxiety')">🌪️ ÚZKOST</div>
         <div class="sos-btn sos-ground" onclick="startSOS('ground')">🧱 UZEMNĚNÍ</div>
     </div>
 
+    <!-- AKCE -->
     <div class="action-row">
-        <a href="https://www.youtube.com/results?search_query=rain+sounds+for+sleeping+no+ads" target="_blank" class="action-btn">🌧️ Déšť</a>
+        <button class="action-btn trigger-btn" onclick="openTriggerModal()">⚡ ZAZNAMENAT ÚZKOST TEĎ</button>
+        <a href="https://www.youtube.com/results?search_query=rain+sounds+for+meditation+no+ads" target="_blank" class="action-btn">🌧️ Déšť (YT)</a>
         <button class="action-btn" onclick="sendSignal()">❤️ Signál pro ni</button>
-        <button class="action-btn btn-report" onclick="generateReport()">📊 TÝDENNÍ REPORT ANALÝZA</button>
+        <button class="action-btn" onclick="generateReport()" style="background:var(--gold); color:#0b0f19;">📊 Analýza</button>
+        <button class="action-btn" onclick="openExport()" style="background:#475569;">📑 Pro terapeuta</button>
     </div>
 
+    <!-- VEČERNÍ REFLEXE -->
     <section class="card">
-        <span class="label">Mise dne</span>
-        <div id="task-me"><b>PRO MĚ:</b> <p>Načítání...</p></div>
-        <div id="task-her" style="margin-top:10px;"><b>PRO NI:</b> <p>Načítání...</p></div>
-    </section>
-
-    <section class="card">
-        <span class="label">Dnešní záznam</span>
+        <span class="label">Večerní uzavření dne</span>
         <div class="rating-grid">
             <div class="form-group">
-                <label class="label">Vztek (reakce)</label>
-                <select id="anger-level"><option value="0">0 - Klid</option><option value="1">1 - Mírný</option><option value="3">3 - Výbuch</option><option value="5">5 - Zkrat</option></select>
+                <label class="label">Dnešní Vztek</label>
+                <select id="anger-level"><option value="0">0-Klid</option><option value="1">1</option><option value="2">2</option><option value="3">3-Výbuch</option><option value="4">4</option><option value="5">5-Zkrat</option></select>
             </div>
             <div class="form-group">
-                <label class="label">Úzkost (vnitřní)</label>
-                <select id="anxiety-level"><option value="0">0 - Pohoda</option><option value="1">1 - Tlak</option><option value="3">3 - Sevření</option><option value="5">5 - Panika</option></select>
+                <label class="label">Celková Úzkost</label>
+                <select id="anxiety-level"><option value="0">0-Pohoda</option><option value="1">1</option><option value="2">2</option><option value="3">3-Tlak</option><option value="4">4</option><option value="5">5-Panika</option></select>
+            </div>
+            <div class="form-group">
+                <label class="label">Sebevědomí</label>
+                <select id="esteem-level"><option value="10">10-Věřím si</option><option value="8">8</option><option value="5">5-Průměr</option><option value="3">3</option><option value="1">1-Dno</option></select>
             </div>
         </div>
-        <textarea id="victory" rows="1" placeholder="Dnešní vítězství (kdy jsem to zvládl)?"></textarea>
-        <textarea id="note" rows="1" placeholder="Jak jsem dnes podpořil ženu?"></textarea>
-        <button class="save-btn" onclick="saveEntry()">Uložit den & dobít baterii</button>
+        <textarea id="note" rows="2" placeholder="Jak jsi dnes podpořil manželku? Co se povedlo?"></textarea>
+        <button class="save-btn" onclick="saveFullEntry()">Uložit večerní reflexi</button>
     </section>
 
+    <!-- HISTORIE -->
     <section class="card">
-        <span class="label">Poslední záznamy</span>
-        <div id="history-list" style="max-height: 150px; overflow-y: auto;"></div>
+        <span class="label">Historie (Úzkosti & Reflexe)</span>
+        <div id="history-list" class="history-list"></div>
     </section>
 </div>
 
-<!-- SOS MODAL -->
-<div id="sos-modal">
-    <div class="breath-circle" id="breath-circle"></div>
+<!-- MODAL: SOS -->
+<div id="sos-modal" class="modal">
+    <div id="breath-circle" style="width:130px; height:130px; background:var(--primary); border-radius:50%; margin-bottom:40px;"></div>
     <h2 id="sos-instruction" style="font-weight:300;"></h2>
     <div class="close-btn" onclick="stopSOS()">Zavřít</div>
 </div>
 
-<!-- REPORT MODAL -->
-<div id="report-modal">
-    <div class="report-content" id="report-body">
-        <!-- Zde se vygeneruje report -->
+<!-- MODAL: RYCHLÁ ÚZKOST -->
+<div id="trigger-modal" class="modal">
+    <div class="modal-content">
+        <span class="label" style="color:var(--anxiety-color)">Bleskový záznam úzkosti</span>
+        <select id="quick-anxiety-level">
+            <option value="1">Level 1 - Mírný neklid</option>
+            <option value="2">Level 2 - Už mě to ruší</option>
+            <option value="3">Level 3 - Silné sevření</option>
+            <option value="4">Level 4 - Na hraně výbuchu</option>
+            <option value="5">Level 5 - Panika / Paralýza</option>
+        </select>
+        <textarea id="quick-trigger" rows="4" placeholder="Co přesně se právě teď děje v tvé hlavě? Co tě vytočilo?"></textarea>
+        <button class="save-btn" style="background:var(--anxiety-color); color:white;" onclick="saveQuickTrigger()">Uložit a vyfouknout</button>
     </div>
-    <div class="close-btn" onclick="document.getElementById('report-modal').style.display='none'">Zavřít analýzu</div>
+    <div class="close-btn" onclick="closeTriggerModal()">Zrušit</div>
+</div>
+
+<!-- MODAL: ANALÝZA -->
+<div id="report-modal" class="modal">
+    <div class="modal-content" id="report-body"></div>
+    <div class="close-btn" onclick="document.getElementById('report-modal').style.display='none'">Zavřít</div>
+</div>
+
+<!-- MODAL: EXPORT -->
+<div id="export-modal" class="modal">
+    <div class="modal-content" style="max-width:95%;">
+        <span class="label">Export dat pro terapeuta</span>
+        <div style="overflow-x:auto;">
+            <table class="export-table">
+                <thead><tr><th>Čas</th><th>Typ</th><th>Vztek</th><th>Úzkost</th><th>S.vědomí</th><th>Poznámka / Spouštěč</th></tr></thead>
+                <tbody id="export-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="close-btn" onclick="document.getElementById('export-modal').style.display='none'">Zavřít</div>
 </div>
 
 <script>
-    const tasksMe = ["Vypni rádio v autě.", "Dnes bez ironie.", "Studená sprcha.", "10 dechů před domem."];
-    const tasksHer = ["Polož jí ruku na rameno.", "Udělej jí čaj.", "Ukliď kuchyň.", "Napiš jí SMS teď."];
-    
-    let groundingStep = 0;
-    const groundingText = ["5 věcí, které VIDÍŠ", "4 věci - DOTYK", "3 věci - SLUCH", "2 věci - VŮNĚ", "1 věc - CHUŤ", "Jsi zpátky."];
-
+    // LOGIKA SOS
     function startSOS(type) {
         document.getElementById('sos-modal').style.display = 'flex';
         const circle = document.getElementById('breath-circle');
         const inst = document.getElementById('sos-instruction');
         circle.style.display = 'block';
-        if(type === 'anger') { inst.innerText = "VZTEK: DÝCHEJ S KRUHEM"; circle.className = 'breath-circle animate-anger'; }
-        else if(type === 'anxiety') { inst.innerText = "ÚZKOST: POMALÉ UVOLNĚNÍ"; circle.className = 'breath-circle animate-anxiety'; }
-        else if(type === 'ground') { circle.style.display = 'none'; groundingStep = 0; nextGrounding(); }
+        if(type === 'anger') { inst.innerText = "DÝCHEJ S KRUHEM (VZTEK)"; circle.style.animation = "breathe 6s infinite ease-in-out"; }
+        else if(type === 'anxiety') { inst.innerText = "POMALÉ UVOLNĚNÍ (ÚZKOST)"; circle.style.animation = "breathe 12s infinite ease-in-out"; }
+        else { circle.style.display = 'none'; runGrounding(); }
     }
-
-    function nextGrounding() {
-        if(groundingStep < groundingText.length) {
-            document.getElementById('sos-instruction').innerHTML = `<div style="color:var(--gold); font-size:1.4rem;">${groundingText[groundingStep]}</div><br><button onclick="nextGrounding()" style="background:var(--gold); border:none; padding:10px 20px; border-radius:10px; font-weight:bold; color:#0f172a;">MÁM</button>`;
-            groundingStep++;
-        }
+    function runGrounding() {
+        const gSteps = ["5 věcí, které VIDÍŠ", "4 věci - DOTYK", "3 věci - SLUCH", "2 věci - VŮNĚ", "1 věc - CHUŤ", "Jsi v bezpečí."];
+        let i = 0;
+        const next = () => {
+            if(i < gSteps.length) {
+                document.getElementById('sos-instruction').innerHTML = `<div style="color:var(--gold); font-size:1.5rem;">${gSteps[i]}</div><br><button onclick="window.gNext()" style="background:var(--gold); border:none; padding:12px 25px; border-radius:10px; font-weight:bold;">MÁM</button>`;
+                i++;
+            } else stopSOS();
+        };
+        window.gNext = next; next();
     }
+    function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; document.getElementById('breath-circle').style.animation = "none"; }
 
-    function stopSOS() { document.getElementById('sos-modal').style.display = 'none'; }
-
+    // SMS SIGNÁL
     function sendSignal() {
-        const msg = "Ahoj lasko, jsi skvela mama a vazim si te. Vecer jsem v tom s tebou. ❤️";
+        const msg = "Ahoj lasko, jen ti chci rict, ze jsi skvela mama. Vecer v tom budeme spolu. ❤️";
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         window.location.href = isIOS ? `sms:&body=${encodeURIComponent(msg)}` : `sms:?body=${encodeURIComponent(msg)}`;
     }
 
-    function saveEntry() {
+    // UKLÁDÁNÍ DAT
+    function openTriggerModal() { document.getElementById('trigger-modal').style.display = 'flex'; }
+    function closeTriggerModal() { document.getElementById('trigger-modal').style.display = 'none'; }
+
+    function saveQuickTrigger() {
         const entry = {
+            type: 'úzkost-blesk',
             ts: Date.now(),
-            date: new Date().toLocaleDateString(),
-            anger: parseInt(document.getElementById('anger-level').value),
-            anxiety: parseInt(document.getElementById('anxiety-level').value),
-            victory: document.getElementById('victory').value,
-            note: document.getElementById('note').value
+            anxiety: document.getElementById('quick-anxiety-level').value,
+            trigger: document.getElementById('quick-trigger').value,
+            dateStr: new Date().toLocaleString('cs-CZ')
         };
-        let logs = JSON.parse(localStorage.getItem('calm_logs_v3') || '[]');
+        pushLog(entry);
+        closeTriggerModal();
+        document.getElementById('quick-trigger').value = "";
+        renderAll();
+    }
+
+    function saveFullEntry() {
+        const entry = {
+            type: 'večerní-reflexe',
+            ts: Date.now(),
+            anger: document.getElementById('anger-level').value,
+            anxiety: document.getElementById('anxiety-level').value,
+            esteem: document.getElementById('esteem-level').value,
+            note: document.getElementById('note').value,
+            dateStr: new Date().toLocaleString('cs-CZ')
+        };
+        pushLog(entry);
+        document.getElementById('note').value = "";
+        alert("Dnešní den byl uzavřen.");
+        renderAll();
+    }
+
+    function pushLog(entry) {
+        let logs = JSON.parse(localStorage.getItem('calm_logs_v4_1') || '[]');
         logs.push(entry);
-        localStorage.setItem('calm_logs_v3', JSON.stringify(logs));
-        alert("Dnešek uložen.");
-        updateStats();
+        localStorage.setItem('calm_logs_v4_1', JSON.stringify(logs));
+    }
+
+    function renderAll() {
+        const logs = JSON.parse(localStorage.getItem('calm_logs_v4_1') || '[]');
+        const reversed = [...logs].reverse();
+
+        // Baterie & Streak
+        const streak = logs.filter(l => l.type === 'večerní-reflexe' && l.anger < 3).length;
+        document.getElementById('streak-days').innerText = `${streak} dní`;
+        document.getElementById('bat-fill').style.width = Math.min(streak * 10, 100) + '%';
+
+        // Historie List
+        document.getElementById('history-list').innerHTML = reversed.slice(0, 10).map(l => {
+            if(l.type === 'úzkost-blesk') {
+                return `<div class="history-item">
+                    <span class="item-date">⚡ ${l.dateStr}</span>
+                    <span class="tag tag-anxiety">ÚZKOST: ${l.anxiety}/5</span>
+                    <div style="margin-top:5px;">${l.trigger}</div>
+                </div>`;
+            } else {
+                return `<div class="history-item" style="border-left: 3px solid var(--primary); padding-left:10px;">
+                    <span class="item-date">🌙 ${l.dateStr} (Reflexe)</span>
+                    <span class="tag tag-anger">Vztek: ${l.anger}</span><span class="tag tag-anxiety">Úzkost: ${l.anxiety}</span><span class="tag tag-esteem">Svědomí: ${l.esteem}</span>
+                    <div style="margin-top:5px; font-style:italic;">${l.note}</div>
+                </div>`;
+            }
+        }).join('');
+
+        // Export body
+        document.getElementById('export-body').innerHTML = reversed.map(l => `
+            <tr>
+                <td>${l.dateStr.split(' ')[1]}<br>${l.dateStr.split(' ')[0]}</td>
+                <td>${l.type === 'úzkost-blesk' ? 'Úzkost' : 'Deník'}</td>
+                <td>${l.anger || '-'}</td>
+                <td>${l.anxiety}</td>
+                <td>${l.esteem || '-'}</td>
+                <td>${l.trigger || l.note}</td>
+            </tr>
+        `).join('');
     }
 
     function generateReport() {
-        const logs = JSON.parse(localStorage.getItem('calm_logs_v3') || '[]');
-        if (logs.length < 3) { alert("Potřebuji alespoň 3 dny dat pro analýzu."); return; }
+        const logs = JSON.parse(localStorage.getItem('calm_logs_v4_1') || '[]');
+        const week = logs.filter(l => l.ts > Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const anxieties = week.filter(l => l.type === 'úzkost-blesk');
         
-        const week = logs.slice(-7);
-        const avgAnger = week.reduce((a, b) => a + b.anger, 0) / week.length;
-        const avgAnxiety = week.reduce((a, b) => a + b.anxiety, 0) / week.length;
-        const totalVictories = week.filter(l => l.victory.trim().length > 0).length;
-
-        let verdict = "";
-        let advice = "";
-
-        if (avgAnger < 1 && avgAnxiety < 1) {
-            verdict = "ZENOVÝ MISTR";
-            advice = "Tento týden jsi byl pro rodinu stabilním majákem. Skvělá práce!";
-        } else if (avgAnger < 2 && avgAnxiety >= 3) {
-            verdict = "PEVNÁ SKÁLA (TIŠÍ TRPITEL)";
-            advice = "Navenek jsi klidný, ale vnitřně se spaluješ úzkostí. Pozor na vyhoření. O víkendu musíš vypnout úplně.";
-        } else if (avgAnger >= 3) {
-            verdict = "BOUŘLIVÉ OBDOBÍ";
-            advice = "Vztek tento týden vítězil. Zkus víc používat SOS tlačítko UZEMNĚNÍ hned při prvním náznaku sevření.";
-        } else {
-            verdict = "STATEČNÝ BOJOVNÍK";
-            advice = "Bojuješ s úzkostí i vztekem, ale vítězství (${totalVictories}) ukazují, že se nevzdáváš. Pokračuj v mikro-krocích.";
-        }
-
         document.getElementById('report-body').innerHTML = `
-            <span class="summary-title">TÝDENNÍ ANALÝZA</span>
-            <p style="margin-bottom:15px;">Za posledních 7 záznamů:</p>
-            <div style="margin-bottom:10px;">📉 Průměrná úzkost: <b>${avgAnxiety.toFixed(1)}/5</b></div>
-            <div style="margin-bottom:10px;">🔥 Průměrný vztek: <b>${avgAnger.toFixed(1)}/5</b></div>
-            <div style="margin-bottom:15px;">🏆 Počet vítězství: <b>${totalVictories}x</b></div>
-            <hr style="border:0; border-top:1px dashed var(--text-dim); margin:15px 0;">
-            <p style="color:var(--gold); font-weight:bold; font-size:1.1rem; margin-bottom:5px;">${verdict}</p>
-            <p style="font-size:0.9rem; line-height:1.4;">${advice}</p>
+            <h3 style="color:var(--gold)">Týdenní analýza</h3><br>
+            <p>Zaznamenaných bleskových úzkostí: <b>${anxieties.length}</b></p>
+            <p>Průměrné sebevědomí: <b>${(week.filter(l=>l.type==='večerní-reflexe').reduce((a,b)=>a+Number(b.esteem),0) / (week.filter(l=>l.type==='večerní-reflexe').length || 1)).toFixed(1)}</b></p><br>
+            <p style="font-size:0.85rem; color:var(--text-dim)">Všimni si, v jakou hodinu tě úzkost přepadá nejčastěji. Jsou to rána před prací, nebo odpoledne před návratem domů?</p>
         `;
         document.getElementById('report-modal').style.display = 'flex';
     }
 
-    function updateStats() {
-        const logs = JSON.parse(localStorage.getItem('calm_logs_v3') || '[]');
-        const streak = logs.filter(l => l.anger < 3).length;
-        document.getElementById('streak-days').innerText = `${streak} dní`;
-        document.getElementById('bat-fill').style.width = Math.min(streak * 10, 100) + '%';
-        const list = document.getElementById('history-list');
-        list.innerHTML = logs.slice(-5).reverse().map(l => `
-            <div class="history-item">
-                <b>${l.date}</b> | <span class="tag tag-anger">V: ${l.anger}</span> <span class="tag tag-anxiety">Ú: ${l.anxiety}</span>
-                <div style="margin-top:4px; opacity:0.8;">${l.victory}</div>
-            </div>
-        `).join('');
-    }
+    function openExport() { document.getElementById('export-modal').style.display = 'flex'; }
 
-    window.onload = function() {
-        const day = new Date().getDate() % tasksMe.length;
-        document.getElementById('task-me').querySelector('p').innerText = tasksMe[day];
-        document.getElementById('task-her').querySelector('p').innerText = tasksHer[day % tasksHer.length];
-        updateStats();
-    };
+    window.onload = renderAll;
 </script>
 </body>
 </html>
