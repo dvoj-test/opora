@@ -213,6 +213,20 @@ Tato mikroaplikace slouží jako osobní mentální štít a terapeutický dení
 ## 📱 Jak používat jako aplikaci
 1. Otevři odkaz v Safari (iPhone) nebo Chrome (Android).
 2. Zvol **Sdílet** -> **Přidat na plochu**.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v4.2
+
+Terapeutická edice s automatickým emailovým exportem.
+
+## 🆕 Novinky ve verzi 4.2
+- **📧 Email Report:** Jedním kliknutím odešleš kompletní statistiky týdne na svůj email. Ideální pro hlubší reflexi nebo sdílení s terapeutem.
+- **🗓️ Nedělní upomínka:** Inteligentní vizuální signál, který se zobrazí pouze v neděli a připomene ti týdenní uzavření.
+- **🛠️ Stabilizace dat:** Vylepšené ukládání do LocalStorage pro iPhone a Android.
+
+## 🚀 Hlavní funkce
+- **⚡ Bleskový záznam úzkosti:** Zapisuj spouštěče hned, jak přijdou.
+- **📊 Týdenní analýza:** Vizuální i textový souhrn tvého stavu.
+- **🔥 SOS Režimy:** Vztek, Úzkost, Uzemnění 5-4-3-2-1.
 3. Aplikace se začne otevírat na celou obrazovku bez lišt prohlížeče.
 
 ---
