@@ -170,3 +170,51 @@ Mentální asistent pro zvládání emocí, úzkostí a podporu rodiny.
 - **SOS Moduly:** Vztek, Úzkost, Uzemnění 5-4-3-2-1.
 - **Deník:** Sledování úzkosti (vnitřní tlak) a vzteku (vnější projev).
 - **Sumarizace:** Týdenní náhled na to, zda jsi v rovnováze, nebo pod neudržitelným tlakem.
+
+# 🛡️ Klidný Táta (Projekt Opora) - v4.1 (Terapeutická Edice)
+
+Tato mikroaplikace slouží jako osobní mentální štít a terapeutický deník pro zvládání vysokého stresu, úzkostí a hněvu při výchově dvojčat a podpoře manželky v náročném podnikání.
+
+## 🚀 Živá aplikace
+**Odkaz:** [https://TVOJE-JMENO.github.io/opora/](https://YOUR-USERNAME.github.io/opora/)
+
+---
+
+## 🆕 Novinky ve verzi 4.1 (Therapy Update)
+
+### ⚡ Bleskový záznam úzkosti (Multi-Trigger Logging)
+- **Kdykoliv během dne:** Už nečekáš na večer. Jakmile přijde úzkost (v práci, v autě), jedním kliknutím zaznamenáš spouštěč a úroveň tlaku.
+- **Chronologie:** Aplikace ukládá neomezené množství záznamů za den s přesným časovým razítkem.
+
+### 📑 Terapeutický Export
+- **Data pro odborníka:** Speciální modul vytvořený pro tvého psychoterapeuta. 
+- **Struktura:** Přehledná tabulka (Datum, Typ záznamu, Vztek, Úzkost, Sebevědomí, Poznámky), kterou stačí ukázat na sezení. Pomáhá najít vzorce chování, které v chaosu dne nevidíš.
+
+### 💎 Budování Sebevědomí
+- **Barometr vědomí sebe sama:** Sledování úrovně sebevědomí (1-10). Pomáhá vnímat, že tvá hodnota neklesá s těžkými dny.
+
+---
+
+## 🛠️ Stálé funkce
+
+- **🔥 SOS Vztek:** 6s dechový cyklus (červený mód) pro okamžitý stop-stav hněvu.
+- **🌪️ SOS Úzkost:** 12s dechový cyklus (modrý mód) pro zklidnění nervové soustavy.
+- **🧱 Uzemnění 5-4-3-2-1:** Interaktivní smyslové cvičení pro zastavení paniky (zlatý mód).
+- **❤️ Signál pro ni:** Bleskové odeslání předpřipravené povzbuzující SMS manželce.
+- **🔋 Baterie odolnosti:** Vizuální tracker tvého pokroku bez výbuchů.
+
+---
+
+## 🔐 Soukromí a technické info
+- **Soukromí:** Veškerá data jsou uložena **pouze lokálně ve tvém zařízení** (LocalStorage). Nikdo jiný k nim nemá přístup.
+- **Offline:** Po prvním načtení funguje aplikace i bez internetu.
+- **Platforma:** HTML5 / CSS3 / Vanilla JavaScript.
+
+## 📱 Jak používat jako aplikaci
+1. Otevři odkaz v Safari (iPhone) nebo Chrome (Android).
+2. Zvol **Sdílet** -> **Přidat na plochu**.
+3. Aplikace se začne otevírat na celou obrazovku bez lišt prohlížeče.
+
+---
+**Autor:** AI Coach & Klidný Táta  
+**Status:** Aktivní vývoj (Therapeutic Phase)
